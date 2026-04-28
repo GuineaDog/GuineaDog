@@ -6,6 +6,8 @@ import perfectionist from 'eslint-plugin-perfectionist';
 import unicorn from 'eslint-plugin-unicorn';
 import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -80,7 +82,7 @@ export default tseslint.config(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        tsconfigRootDir: path.dirname(fileURLToPath(import.meta.url)),
       },
     },
     rules: {
