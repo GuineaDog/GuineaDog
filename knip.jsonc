@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": ["*.config.{ts,mjs,cjs}", "packages/*/index.mjs", "packages/*/test.mjs"],
+  "project": ["packages/**/*.{mjs,ts}"],
+  "ignore": [],
+  "ignoreDependencies": ["@stryker-mutator/*"],
+  "ignoreBinaries": [],
+}
