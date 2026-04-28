@@ -3,6 +3,7 @@
 A CLI tool to replace non-standard typography with standard ASCII equivalents. It targets common "smart" characters often introduced by word processors or copy-pasting from styled text.
 
 ## What it fixes:
+
 - **Dashes:** Replaces `—` (em dash), `–` (en dash), `‒`, `―` with `-`.
 - **Double Quotes:** Replaces `“` and `”` with `"`.
 - **Single Quotes:** Replaces `‘` and `’` with `'`.

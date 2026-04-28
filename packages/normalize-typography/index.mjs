@@ -72,9 +72,7 @@ async function processFile(filePath) {
       return;
     }
     if (isCheckMode) {
-      console.error(
-        `❌ Error: Non-standard typography found in "${relativePath}".`,
-      );
+      console.error(`❌ Error: Non-standard typography found in "${relativePath}".`);
       process.exitCode = 1;
     } else {
       fs.writeFileSync(absolutePath, newContent, 'utf8');
