@@ -1,0 +1,38 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+# restart and check errors:
+# https://github.com/GuineaDog/GuineaDog/network/updates
+
+# launches:
+# https://github.com/GuineaDog/GuineaDog/actions/workflows/dependabot/dependabot-updates
+
+version: 2
+updates:
+  # 1. Updating JS/TS dependencies
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly' # How often to check: 'daily', 'weekly' or 'monthly'
+      day: 'monday'
+    # Each update will be in a separate PR (grouping removed)
+    open-pull-requests-limit: 100
+    labels:
+      - 'dependencies'
+      - 'npm/js/ts'
+    reviewers:
+      - 'gal20040'
+
+  # 2. Updating CI/CD Scripts (GitHub Actions)
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    open-pull-requests-limit: 100
+    labels:
+      - 'dependencies'
+      - 'ci/cd'
+    reviewers:
+      - 'gal20040'
