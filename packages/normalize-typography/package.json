@@ -1,0 +1,27 @@
+{
+  "name": "@guineadog/normalize-typography",
+  "version": "0.1.0",
+  "description": "CLI tool to replace non-standard typography (smart quotes, dashes) with standard ASCII equivalents",
+  "type": "module",
+  "main": "index.mjs",
+  "bin": {
+    "normalize-typography": "index.mjs",
+    "nrm-tpgr": "index.mjs"
+  },
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "keywords": [
+    "typography",
+    "dashes",
+    "quotes",
+    "smart-quotes",
+    "lint",
+    "maintenance"
+  ],
+  "author": "Artem Grodetskii",
+  "license": "MIT",
+  "dependencies": {
+    "glob": "^13.0.6"
+  }
+}
