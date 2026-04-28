@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.test.json --noEmit && tsc -p tsconfig.node.json --noEmit && vite build",
+    "type-check": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.test.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "format": "prettier --write .",
     "knip": "knip",
     "lint": "eslint . --max-warnings 0",
