@@ -7,6 +7,7 @@ node_modules/
 reports/
 **/*.gradle
 .prettierignore
+pre-commit
 package-lock.json
 pnpm-lock.yaml
 yarn.lock

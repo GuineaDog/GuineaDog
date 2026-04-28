@@ -10,8 +10,16 @@
   "scripts": {
     "knip": "knip",
     "format": "prettier --write .",
+    "lint": "eslint . --max-warnings 0",
     "lint:deps": "depcruise packages --config .dependency-cruiser.cjs",
+    "prepare": "husky",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --check"
+    ],
+    "*.{js,mjs,ts,tsx}": "eslint --max-warnings 0"
   },
   "repository": {
     "type": "git",
@@ -25,8 +33,22 @@
   },
   "homepage": "https://github.com/GuineaDog/GuineaDog#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
     "dependency-cruiser": "^17.3.10",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-check-file": "^3.3.1",
+    "eslint-plugin-jsdoc": "^62.9.0",
+    "eslint-plugin-perfectionist": "^5.9.0",
+    "eslint-plugin-unicorn": "^64.0.0",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "globals": "^17.5.0",
+    "husky": "^9.1.7",
     "knip": "^6.7.0",
-    "prettier": "^3.8.3"
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.1"
   }
 }
