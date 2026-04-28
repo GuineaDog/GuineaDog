@@ -110,7 +110,9 @@ async function run() {
   }
 }
 
-run().catch((error) => {
+try {
+  await run();
+} catch (error) {
   console.error(error);
   process.exit(1);
-});
+}
