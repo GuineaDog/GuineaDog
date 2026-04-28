@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "strict": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowImportingTsExtensions": true,
-    "rewriteRelativeImportExtensions": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "lib": ["ESNext", "DOM"]
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./packages/*/"]
+    }
   },
-  "include": ["packages/**/*.ts", "*.config.mjs"]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" },
+    { "path": "./tsconfig.test.json" }
+  ]
 }
