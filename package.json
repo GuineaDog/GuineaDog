@@ -8,10 +8,12 @@
     "packages/*"
   ],
   "scripts": {
-    "knip": "knip",
+    "build": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.test.json --noEmit && tsc -p tsconfig.node.json --noEmit && vite build",
     "format": "prettier --write .",
+    "knip": "knip",
     "lint": "eslint . --max-warnings 0",
     "lint:deps": "depcruise packages --config .dependency-cruiser.cjs",
+    "lint:fix": "eslint . --fix --max-warnings 0",
     "prepare": "husky",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

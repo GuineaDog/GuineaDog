@@ -92,9 +92,9 @@ async function run() {
     console.log('Searching for non-standard typography (dashes, smart quotes)...');
     const files = await glob('**/*', {
       absolute: true,
+      dot: true,
       ignore: ignorePatterns,
       nodir: true,
-      dot: true,
     });
 
     for (const file of files) {
