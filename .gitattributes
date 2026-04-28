@@ -1,0 +1,10 @@
+# Force Git to use LF for all text files, even on Windows
+* text=auto eol=lf
+
+# Exceptions for files that MUST be Windows-style (startup scripts)
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
+
+# To replace CRLF with LF in all files, commit all changes (or stash them) and run:
+#git rm --cached -r .
+#git reset --hard
