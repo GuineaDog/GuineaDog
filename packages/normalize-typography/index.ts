@@ -1,12 +1,18 @@
 #!/usr/bin/env node
 
 import { glob } from 'glob';
-import console from 'node:console';
-import fs from 'node:fs';
+import * as console from 'node:console';
+import { existsSync, lstatSync, readFileSync } from 'node:fs';
+import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
-const REPLACEMENTS = [
+interface Replacement {
+  regex: RegExp;
+  replace: string;
+}
+
+const REPLACEMENTS: Replacement[] = [
   // Dashes
   { regex: /[\u2014\u2013\u2012\u2015]/g, replace: '-' },
   // Double quotes
@@ -19,16 +25,21 @@ const isCheckMode = process.argv.includes('--check');
 const args = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 const rootDir = process.cwd();
 
-function getIgnorePatterns() {
+/**
+ * Retrieves the ignore patterns from the .prettierignore file.
+ *
+ * @returns An array of glob patterns to ignore.
+ */
+function getIgnorePatterns(): string[] {
   const ignorePath = path.resolve(rootDir, '.prettierignore');
   const patterns = ['.git/**', 'node_modules/**'];
 
-  if (fs.existsSync(ignorePath)) {
-    const content = fs.readFileSync(ignorePath, 'utf8');
+  if (existsSync(ignorePath)) {
+    const content = readFileSync(ignorePath, 'utf8');
     const lines = content
       .split('\n')
       .map((line) => line.trim())
-      .filter((line) => line && !line.startsWith('#'));
+      .filter((line) => line !== '' && !line.startsWith('#'));
 
     for (const line of lines) {
       if (line.endsWith('/')) {
@@ -43,14 +54,20 @@ function getIgnorePatterns() {
 
 const ignorePatterns = getIgnorePatterns();
 
-async function processFile(filePath) {
+/**
+ * Processes a single file, replacing non-standard typography.
+ *
+ * @param filePath - The path to the file to process.
+ * @returns A promise that resolves when the file is processed.
+ */
+async function processFile(filePath: string): Promise<void> {
   const absolutePath = path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath);
 
-  if (!fs.existsSync(absolutePath)) {
+  if (!existsSync(absolutePath)) {
     return;
   }
   try {
-    if (fs.lstatSync(absolutePath).isDirectory()) return;
+    if (lstatSync(absolutePath).isDirectory()) return;
   } catch {
     return;
   }
@@ -58,7 +75,7 @@ async function processFile(filePath) {
   const relativePath = path.relative(rootDir, absolutePath).replaceAll('\\', '/');
 
   try {
-    const content = fs.readFileSync(absolutePath, 'utf8');
+    const content = await fs.readFile(absolutePath, 'utf8');
     let newContent = content;
     let hasChanges = false;
 
@@ -76,7 +93,7 @@ async function processFile(filePath) {
       console.error(`❌ Error: Non-standard typography found in "${relativePath}".`);
       process.exitCode = 1;
     } else {
-      fs.writeFileSync(absolutePath, newContent, 'utf8');
+      await fs.writeFile(absolutePath, newContent, 'utf8');
       console.log(`✔ Fixed: ${relativePath}`);
     }
   } catch {
@@ -84,7 +101,12 @@ async function processFile(filePath) {
   }
 }
 
-async function run() {
+/**
+ * Main function to run the typography normalization tool.
+ *
+ * @returns A promise that resolves when all files are processed.
+ */
+async function run(): Promise<void> {
   if (args.length > 0) {
     for (const file of args) {
       await processFile(file);

@@ -3,13 +3,19 @@
   "version": "0.1.0",
   "description": "CLI tool to replace non-standard typography (smart quotes, dashes) with standard ASCII equivalents",
   "type": "module",
-  "main": "index.mjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
-    "normalize-typography": "index.mjs",
-    "nrm-tpgr": "index.mjs"
+    "normalize-typography": "dist/index.js",
+    "nrm-tpgr": "dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "node test.mjs"
+    "test": "node --import tsx --test *.test.ts",
+    "build": "tsc --project tsconfig.json",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "typography",
