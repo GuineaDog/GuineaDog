@@ -18,9 +18,9 @@ module.exports = {
           '\\.config\\.(js|mjs|ts|cjs)$',
           '^\\.dependency-cruiser\\.cjs$',
           '^eslint\\.config\\.mjs$',
-          '\\.test\\.mjs$',
+          '\\.test\\.ts$',
           'README\\.md$',
-          '^packages/[^/]+/index\\.mjs$',
+          '^packages/[^/]+/index\\.ts$',
         ],
       },
       to: {},
@@ -36,6 +36,7 @@ module.exports = {
     },
   ],
   options: {
+    exclude: ['^packages/[^/]+/dist/'],
     doNotFollow: {
       path: 'node_modules',
     },
