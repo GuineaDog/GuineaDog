@@ -14,12 +14,14 @@
     "lint": "eslint . --max-warnings 0",
     "lint:deps": "depcruise packages --config .dependency-cruiser.cjs",
     "lint:fix": "eslint . --fix --max-warnings 0",
+    "nrm-tpgr": "node packages/normalize-typography/dist/index.js",
     "prepare": "husky",
     "test": "npm test --workspaces --if-present"
   },
   "lint-staged": {
     "*": [
-      "prettier --check"
+      "prettier --check",
+      "npm run nrm-tpgr -- --check"
     ],
     "*.{js,mjs,ts,tsx}": "eslint --max-warnings 0"
   },
