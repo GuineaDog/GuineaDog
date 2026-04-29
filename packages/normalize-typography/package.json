@@ -16,7 +16,8 @@
     "clean": "rimraf dist",
     "test": "node --import tsx --test *.test.ts",
     "build": "tsc --project tsconfig.json",
-    "prepublishOnly": "npm run clean && npm run build"
+    "pack": "npm pack --pack-destination ./dist",
+    "prepublishOnly": "npm run clean && npm run build && npm run pack"
   },
   "keywords": [
     "typography",
