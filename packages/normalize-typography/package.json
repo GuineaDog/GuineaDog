@@ -27,7 +27,7 @@
   ],
   "author": "Artem Grodetskii",
   "license": "MIT",
-  "dependencies": {
-    "glob": "^13.0.6"
+  "engines": {
+    "node": "^22 || ^24"
   }
 }

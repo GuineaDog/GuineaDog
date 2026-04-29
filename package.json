@@ -36,6 +36,9 @@
     "url": "https://github.com/GuineaDog/GuineaDog/issues"
   },
   "homepage": "https://github.com/GuineaDog/GuineaDog#readme",
+  "engines": {
+    "node": "^22 || ^24"
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^25.6.0",
