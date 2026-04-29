@@ -52,7 +52,7 @@
     "eslint-plugin-unused-imports": "^4.4.1",
     "globals": "^17.5.0",
     "husky": "^9.1.7",
-    "knip": "^6.8.0",
+    "knip": "^6.9.0",
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
     "tsx": "^4.21.0",
