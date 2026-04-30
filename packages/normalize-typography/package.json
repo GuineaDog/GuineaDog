@@ -1,6 +1,6 @@
 {
   "name": "@guineadog/normalize-typography",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "CLI tool to replace non-standard typography (smart quotes, dashes) with standard ASCII equivalents",
   "type": "module",
   "main": "dist/index.js",
