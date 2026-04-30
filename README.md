@@ -1,3 +1,20 @@
 # GuineaDog
 
+GuineaDog is a DX toolkit and automation scripts collection designed to improve developer experience and maintain code quality.
+
+## 🛠 Utilities
+
+### Available
+
+- **`normalize-typography`**: Standardizes non-ASCII typography (quotes, dashes) for consistent codebase style.
+
+### Planned for Migration
+
+- **`android-version-sync`**: Automatically synchronizes versions between `package.json` and Android `build.gradle`.
+- **`localization-tools`**: Tools for auditing unused keys, syncing locales, and validating translations.
+- **`metrics-history`**: Collects and visualizes (via charts) project quality metrics over time.
+- **`report-summarizer`**: Generates clean Markdown summaries for Test Coverage and Stryker Mutation analysis.
+
+## Development Commands
+
 Check out the [Quick Start Guide](QUICKSTART.md) for development commands.
