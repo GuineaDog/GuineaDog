@@ -79,7 +79,7 @@ npm run format:typography
 
 You can use the full command `normalize-typography` or the shortened alias: `nrm-tpgr`.
 
-#### Auto-fix everything (respects `.prettierignore`)
+#### Auto-fix everything (respects `.prettierignore` - check https://github.com/GuineaDog/GuineaDog/issues/5)
 
 ```
 npx @guineadog/normalize-typography
@@ -111,7 +111,26 @@ npm install --save-dev @guineadog/normalize-typography@latest
 npm install -g @guineadog/normalize-typography@latest
 ```
 
+## Known issues
+
+- Incorrectly ignores files/folders specified in the '.prettierignore' file (https://github.com/GuineaDog/GuineaDog/issues/5)
+
+## Roadmap
+
+- Add config file (https://github.com/GuineaDog/GuineaDog/issues/4)
+- Show list of scanned files in sorted order (https://github.com/GuineaDog/GuineaDog/issues/6)
+
+## Changelog
+
+See the [CHANGELOG](./CHANGELOG.md) for a history of changes.
+
+## Contributing
+
+Please refer to the [CONTRIBUTING.md](../../CONTRIBUTING.md) file for information on how to report bugs, suggest features, or submit pull requests.
+
 ## License
+
+This project is licensed under the [MIT License](../../LICENSE).
 
 <p align="left">
   <a href="https://opensource.org/licenses/MIT">
