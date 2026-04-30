@@ -120,6 +120,10 @@ npm install -g @guineadog/normalize-typography@latest
 - Add config file (https://github.com/GuineaDog/GuineaDog/issues/4)
 - Show list of scanned files in sorted order (https://github.com/GuineaDog/GuineaDog/issues/6)
 
+## Changelog
+
+See the [CHANGELOG](./CHANGELOG.md) for a history of changes.
+
 ## Contributing
 
 Please refer to the [CONTRIBUTING.md](../../CONTRIBUTING.md) file for information on how to report bugs, suggest features, or submit pull requests.
