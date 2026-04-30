@@ -22,3 +22,8 @@ Check out the [Quick Start Guide](QUICKSTART.md) for development commands.
 ## Publishing Guide
 
 Check out the the [Publishing Guide](PUBLISHING.md) for release instructions.
+
+## Contributing
+
+Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for information on how to report bugs, suggest features, or submit pull requests.
+

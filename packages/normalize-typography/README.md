@@ -111,6 +111,10 @@ npm install --save-dev @guineadog/normalize-typography@latest
 npm install -g @guineadog/normalize-typography@latest
 ```
 
+## Contributing
+
+Please refer to the [CONTRIBUTING.md](../../CONTRIBUTING.md) file for information on how to report bugs, suggest features, or submit pull requests.
+
 ## License
 
 <p align="left">
