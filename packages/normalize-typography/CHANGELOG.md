@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.3.2] - 2026-05-01
+## [0.3.3] - 2026-05-01
 
 _This release focuses on infrastructure, documentation, and tooling improvements. No functional changes were made to the package code._
 
