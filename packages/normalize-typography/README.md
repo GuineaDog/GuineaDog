@@ -1,5 +1,7 @@
 # @guineadog/normalize-typography
 
+[![npm version](https://img.shields.io/npm/v/@guineadog/normalize-typography.svg)](https://www.npmjs.com/package/@guineadog/normalize-typography)
+
 A CLI tool to replace non-standard typography with standard ASCII equivalents. It targets common "smart" characters often introduced by word processors or copy-pasting from styled text.
 
 ## What it fixes:

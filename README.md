@@ -6,7 +6,7 @@ GuineaDog is a DX toolkit and automation scripts collection designed to improve 
 
 ### Available
 
-- **`normalize-typography`**: Standardizes non-ASCII typography (quotes, dashes) for consistent codebase style.
+- [![npm version](https://img.shields.io/npm/v/@guineadog/normalize-typography.svg)](https://www.npmjs.com/package/@guineadog/normalize-typography) `packages\normalize-typography\`: Standardizes non-ASCII typography (quotes, dashes) for consistent codebase style.
 
 ### Planned for Migration
 
