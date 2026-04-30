@@ -1,6 +1,6 @@
 {
   "name": "@guineadog/normalize-typography",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "CLI tool to replace non-standard typography (smart quotes, dashes) with standard ASCII equivalents",
   "type": "module",
   "main": "dist/index.js",
@@ -13,9 +13,11 @@
     "dist"
   ],
   "scripts": {
+    "clean": "rimraf dist",
     "test": "node --import tsx --test *.test.ts",
     "build": "tsc --project tsconfig.json",
-    "prepublishOnly": "npm run build"
+    "pack": "npm pack --pack-destination ./dist",
+    "prepublishOnly": "npm run clean && npm run build && npm run pack"
   },
   "keywords": [
     "typography",
@@ -27,7 +29,7 @@
   ],
   "author": "Artem Grodetskii",
   "license": "MIT",
-  "dependencies": {
-    "glob": "^13.0.6"
+  "engines": {
+    "node": "^22 || ^24"
   }
 }

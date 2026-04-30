@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { glob } from 'glob';
 import * as console from 'node:console';
 import { existsSync, lstatSync, readFileSync } from 'node:fs';
 import * as fs from 'node:fs/promises';
@@ -28,11 +27,11 @@ const rootDir = process.cwd();
 /**
  * Retrieves the ignore patterns from the .prettierignore file.
  *
- * @returns An array of glob patterns to ignore.
+ * @returns An array of directory or file names to ignore.
  */
 function getIgnorePatterns(): string[] {
   const ignorePath = path.resolve(rootDir, '.prettierignore');
-  const patterns = ['.git/**', 'node_modules/**'];
+  const patterns = ['.git', 'node_modules', 'dist'];
 
   if (existsSync(ignorePath)) {
     const content = readFileSync(ignorePath, 'utf8');
@@ -42,11 +41,7 @@ function getIgnorePatterns(): string[] {
       .filter((line) => line !== '' && !line.startsWith('#'));
 
     for (const line of lines) {
-      if (line.endsWith('/')) {
-        patterns.push(`${line}**`, line.slice(0, -1));
-      } else {
-        patterns.push(line, `${line}/**`);
-      }
+      patterns.push(line.endsWith('/') ? line.slice(0, -1) : line);
     }
   }
   return patterns;
@@ -55,7 +50,20 @@ function getIgnorePatterns(): string[] {
 const ignorePatterns = getIgnorePatterns();
 
 /**
- * Processes a single file, replacing non-standard typography.
+ * Checks if a path should be ignored.
+ *
+ * @param filePath - The absolute path to check.
+ * @returns True if the path should be ignored.
+ */
+function isIgnored(filePath: string): boolean {
+  const relativePath = path.relative(rootDir, filePath).replaceAll('\\', '/');
+  return ignorePatterns.some((pattern) => {
+    return relativePath === pattern || relativePath.startsWith(`${pattern}/`);
+  });
+}
+
+/**
+ * Processes a single file.
  *
  * @param filePath - The path to the file to process.
  * @returns A promise that resolves when the file is processed.
@@ -63,11 +71,13 @@ const ignorePatterns = getIgnorePatterns();
 async function processFile(filePath: string): Promise<void> {
   const absolutePath = path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath);
 
-  if (!existsSync(absolutePath)) {
+  if (!existsSync(absolutePath) || isIgnored(absolutePath)) {
     return;
   }
+
   try {
-    if (lstatSync(absolutePath).isDirectory()) return;
+    const stats = lstatSync(absolutePath);
+    if (stats.isDirectory()) return;
   } catch {
     return;
   }
@@ -94,10 +104,10 @@ async function processFile(filePath: string): Promise<void> {
       process.exitCode = 1;
     } else {
       await fs.writeFile(absolutePath, newContent, 'utf8');
-      console.log(`✔ Fixed: ${relativePath}`);
+      console.log(`✅ Fixed: ${relativePath}`);
     }
   } catch {
-    // Skip binary files
+    // Skip binary files or permission issues
   }
 }
 
@@ -112,16 +122,17 @@ async function run(): Promise<void> {
       await processFile(file);
     }
   } else {
-    console.log('Searching for non-standard typography (dashes, smart quotes)...');
-    const files = await glob('**/*', {
-      absolute: true,
-      dot: true,
-      ignore: ignorePatterns,
-      nodir: true,
-    });
+    console.log('🔍 Searching for non-standard typography (dashes, smart quotes)...');
 
-    for (const file of files) {
-      await processFile(file);
+    try {
+      const files = await fs.readdir(rootDir, { recursive: true });
+
+      for (const file of files) {
+        const fullPath = path.join(rootDir, file);
+        await processFile(fullPath);
+      }
+    } catch (error) {
+      console.error('❌ Failed to read directory:', error);
     }
 
     if (process.exitCode === 1) {
