@@ -27,3 +27,12 @@ Check out the the [Publishing Guide](PUBLISHING.md) for release instructions.
 
 Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for information on how to report bugs, suggest features, or submit pull requests.
 
+## License
+
+This project is licensed under the [MIT License](../../LICENSE).
+
+<p align="left">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+  </a>
+</p>

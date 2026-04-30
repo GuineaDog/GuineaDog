@@ -117,6 +117,8 @@ Please refer to the [CONTRIBUTING.md](../../CONTRIBUTING.md) file for informatio
 
 ## License
 
+This project is licensed under the [MIT License](../../LICENSE).
+
 <p align="left">
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
