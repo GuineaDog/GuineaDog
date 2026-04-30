@@ -19,6 +19,15 @@
     "pack": "npm pack --pack-destination ./dist",
     "prepublishOnly": "npm run clean && npm run build && npm run pack"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuineaDog/GuineaDog.git",
+    "directory": "packages/normalize-typography"
+  },
+  "bugs": {
+    "url": "https://github.com/GuineaDog/GuineaDog/issues"
+  },
+  "homepage": "https://github.com/GuineaDog/GuineaDog/tree/main/packages/normalize-typography#readme",
   "keywords": [
     "typography",
     "dashes",
