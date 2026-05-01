@@ -53,19 +53,44 @@ function comparePaths(a: string, b: string): number {
 }
 
 /**
+ * Scans the directory for files to process.
+ *
+ * @returns A promise that resolves to a sorted array of file paths.
+ */
+async function getFilesFromDirectory(): Promise<string[]> {
+  console.log('🔍 Searching for non-standard typography (dashes, smart quotes)...');
+  try {
+    const files = await walk({
+      ignoreFiles: ['.gitignore', '.prettierignore'],
+      includeEmpty: false,
+      path: rootDir,
+    });
+    files.sort(comparePaths);
+    if (files.length === 0) {
+      console.log('None');
+    }
+    return files.map((file) => path.join(rootDir, file));
+  } catch (error) {
+    console.error('❌ Failed to read directory:', error);
+    return [];
+  }
+}
+
+/**
  * Reads, normalizes, and updates the file content if needed.
  *
  * @param absolutePath - The absolute path to the file.
  * @param relativePath - The relative path for logging.
+ * @returns The relative path if the file was modified or needs modification, otherwise null.
  */
-async function handleFileContent(absolutePath: string, relativePath: string): Promise<void> {
+async function handleFileContent(absolutePath: string, relativePath: string): Promise<null | string> {
   try {
     const content = await fs.readFile(absolutePath, 'utf8');
     const { hasChanges, newContent } = normalizeContent(content);
 
     if (!hasChanges) {
       console.log(relativePath);
-      return;
+      return null;
     }
 
     if (isCheckMode) {
@@ -75,8 +100,10 @@ async function handleFileContent(absolutePath: string, relativePath: string): Pr
       await fs.writeFile(absolutePath, newContent, 'utf8');
       console.log(`${relativePath} \t ✅ Fixed`);
     }
+    return relativePath;
   } catch {
     // Skip binary files or permission issues
+    return null;
   }
 }
 
@@ -104,22 +131,44 @@ function normalizeContent(content: string): { hasChanges: boolean; newContent: s
  * Processes a single file.
  *
  * @param filePath - The path to the file to process.
- * @returns A promise that resolves when the file is processed.
+ * @returns The relative path if the file was modified, otherwise null.
  */
-async function processFile(filePath: string): Promise<void> {
+async function processFile(filePath: string): Promise<null | string> {
   const absolutePath = path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath);
 
-  if (!existsSync(absolutePath)) return;
+  if (!existsSync(absolutePath)) return null;
 
   try {
     const stats = lstatSync(absolutePath);
-    if (stats.isDirectory()) return;
+    if (stats.isDirectory()) return null;
   } catch {
-    return;
+    return null;
   }
 
   const relativePath = path.relative(rootDir, absolutePath).replaceAll('\\', '/');
-  await handleFileContent(absolutePath, relativePath);
+  return await handleFileContent(absolutePath, relativePath);
+}
+
+/**
+ * Prints the final report based on the processed files.
+ *
+ * @param fixedFiles - Array of paths that were modified or need modification.
+ */
+function reportResults(fixedFiles: string[]): void {
+  if (fixedFiles.length > 0) {
+    console.log(
+      `\n${
+        isCheckMode ?
+          '❗ Warning: Non-standard typography found. Use "npx normalize-typography" to auto-fix it'
+        : '✅ Fixed'
+      }:`,
+    );
+    for (const file of fixedFiles) {
+      console.log(file);
+    }
+  } else {
+    console.log('\n✅ Done!');
+  }
 }
 
 /**
@@ -128,39 +177,17 @@ async function processFile(filePath: string): Promise<void> {
  * @returns A promise that resolves when all files are processed.
  */
 async function run(): Promise<void> {
-  if (args.length > 0) {
-    for (const file of args) {
-      await processFile(file);
-    }
-  } else {
-    console.log('🔍 Searching for non-standard typography (dashes, smart quotes)...');
+  const fixedFiles: string[] = [];
+  const filesToProcess = args.length > 0 ? args : await getFilesFromDirectory();
 
-    try {
-      const files = await walk({
-        ignoreFiles: ['.gitignore', '.prettierignore'],
-        includeEmpty: false,
-        path: rootDir,
-      });
-      files.sort(comparePaths);
-      console.log('Scanned:');
-      if (files.length === 0) {
-        console.log('None');
-      }
-
-      for (const file of files) {
-        const fullPath = path.join(rootDir, file);
-        await processFile(fullPath);
-      }
-    } catch (error) {
-      console.error('❌ Failed to read directory:', error);
-    }
-
-    if (process.exitCode === 1) {
-      console.log('\n❗ Warning: Non-standard typography found. Use "npx normalize-typography" to auto-fix.');
-    } else {
-      console.log('\n✅ Done!');
+  for (const file of filesToProcess) {
+    const fixed = await processFile(file);
+    if (fixed) {
+      fixedFiles.push(fixed);
     }
   }
+
+  reportResults(fixedFiles);
 }
 
 try {
