@@ -9,7 +9,7 @@ on:
   #push:
   #  branches:
   #    - main
-  #pull_request:
+  pull_request:
   workflow_dispatch:
   #schedule:
   #  - cron: '0 4 * * *'
@@ -18,8 +18,8 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 jobs:
-  check_if_launch_is_necessary_job:
-    name: Check if launch is necessary
+  prepare:
+    name: Prepare
     runs-on: ubuntu-latest
     timeout-minutes: 2
     env:
@@ -55,9 +55,9 @@ jobs:
           echo "- github.head_ref (only for PR): \`${{ github.head_ref }}\`" >> $GITHUB_STEP_SUMMARY
           echo "- github.ref_name: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
 
-  ci_utilities:
-    name: CI utilities
-    needs: [check_if_launch_is_necessary_job]
+  verify:
+    name: Verify
+    needs: [prepare]
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
