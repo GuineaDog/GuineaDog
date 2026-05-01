@@ -50,6 +50,33 @@ function getIgnorePatterns(): string[] {
 const ignorePatterns = getIgnorePatterns();
 
 /**
+ * Reads, normalizes, and updates the file content if needed.
+ *
+ * @param absolutePath - The absolute path to the file.
+ * @param relativePath - The relative path for logging.
+ */
+async function handleFileContent(absolutePath: string, relativePath: string): Promise<void> {
+  try {
+    const content = await fs.readFile(absolutePath, 'utf8');
+    const { hasChanges, newContent } = normalizeContent(content);
+
+    if (!hasChanges) {
+      return;
+    }
+
+    if (isCheckMode) {
+      console.error(`❌ Error: Non-standard typography found in "${relativePath}".`);
+      process.exitCode = 1;
+    } else {
+      await fs.writeFile(absolutePath, newContent, 'utf8');
+      console.log(`✅ Fixed: ${relativePath}`);
+    }
+  } catch {
+    // Skip binary files or permission issues
+  }
+}
+
+/**
  * Checks if a path should be ignored.
  *
  * @param filePath - The absolute path to check.
@@ -60,6 +87,26 @@ function isIgnored(filePath: string): boolean {
   return ignorePatterns.some((pattern) => {
     return relativePath === pattern || relativePath.startsWith(`${pattern}/`);
   });
+}
+
+/**
+ * Normalizes the typography in the given content.
+ *
+ * @param content - The original content.
+ * @returns An object containing the normalized content and a flag indicating if changes were made.
+ */
+function normalizeContent(content: string): { hasChanges: boolean; newContent: string } {
+  let newContent = content;
+  let hasChanges = false;
+
+  for (const { regex, replace } of REPLACEMENTS) {
+    if (regex.test(newContent)) {
+      newContent = newContent.replaceAll(regex, replace);
+      hasChanges = true;
+    }
+  }
+
+  return { hasChanges, newContent };
 }
 
 /**
@@ -83,32 +130,7 @@ async function processFile(filePath: string): Promise<void> {
   }
 
   const relativePath = path.relative(rootDir, absolutePath).replaceAll('\\', '/');
-
-  try {
-    const content = await fs.readFile(absolutePath, 'utf8');
-    let newContent = content;
-    let hasChanges = false;
-
-    for (const { regex, replace } of REPLACEMENTS) {
-      if (regex.test(newContent)) {
-        newContent = newContent.replaceAll(regex, replace);
-        hasChanges = true;
-      }
-    }
-
-    if (!hasChanges) {
-      return;
-    }
-    if (isCheckMode) {
-      console.error(`❌ Error: Non-standard typography found in "${relativePath}".`);
-      process.exitCode = 1;
-    } else {
-      await fs.writeFile(absolutePath, newContent, 'utf8');
-      console.log(`✅ Fixed: ${relativePath}`);
-    }
-  } catch {
-    // Skip binary files or permission issues
-  }
+  await handleFileContent(absolutePath, relativePath);
 }
 
 /**
