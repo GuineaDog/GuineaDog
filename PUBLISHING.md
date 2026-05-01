@@ -49,12 +49,14 @@ git tag @guineadog/normalize-typography@0.3.0
 Since these packages are under the `@guineadog` scope, you must use the `--access public` flag to publish to the public registry.
 
 ```
+cd ./packages/<package-name>/ && npm run clean && cd ../../
 npm publish -w packages/<package-name> --access public
 ```
 
 _Example:_
 
 ```
+cd ./packages/normalize-typography/ && npm run clean && cd ../../
 npm publish -w packages/normalize-typography --access public
 ```
 
