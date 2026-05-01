@@ -56,18 +56,21 @@ npm run test
 
 ```
 # Check for new versions of explicitly specified dependencies
+# workspaces' dependencies
+echo "Prod dependencies:"; npm outdated --workspaces --omit=dev; echo "#####"; echo "Prod+Dev dependencies:"; npm outdated --workspaces --include=dev
+# root dependencies
 echo "Prod dependencies:"; npm outdated --omit=dev; echo "#####"; echo "Prod+Dev dependencies:"; npm outdated --include=dev
 
 # Update all dependencies according to package.json ranges
-npm update
+npm update --workspaces && npm update
 
 # npm prune - removes unused packages from node_modules (those not in package.json). Useful after manual manipulations.
 # Report only: npm prune --dry-run
-npm prune
+npm prune --workspaces && npm prune
 
 # npm dedupe - attempts to flatten the dependency tree to remove duplicates. Helps reduce node_modules size.
 # Report only: npm dedupe --dry-run
-npm dedupe
+npm dedupe --workspaces && npm dedupe
 
 # knip - helps keep the project clean of unused code, files, and dependencies
 # Auto-fix: npm run knip -- --fix
@@ -78,8 +81,11 @@ npm run lint:deps
 
 # npm audit - checks all dependencies for known vulnerabilities
 # Auto-fix: npm audit fix
-npm audit
+npm audit --workspaces && npm audit
 
 # Final check for outdated dependencies
+# workspaces' dependencies
+echo "Prod dependencies:"; npm outdated --workspaces --omit=dev; echo "#####"; echo "Prod+Dev dependencies:"; npm outdated --workspaces --include=dev
+# root dependencies
 echo "Prod dependencies:"; npm outdated --omit=dev; echo "#####"; echo "Prod+Dev dependencies:"; npm outdated --include=dev
 ```

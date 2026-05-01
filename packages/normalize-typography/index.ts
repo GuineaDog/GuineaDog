@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
+import walk from 'ignore-walk';
 import * as console from 'node:console';
-import { existsSync, lstatSync, readFileSync } from 'node:fs';
+import { existsSync, lstatSync } from 'node:fs';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
@@ -23,31 +24,6 @@ const REPLACEMENTS: Replacement[] = [
 const isCheckMode = process.argv.includes('--check');
 const args = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 const rootDir = process.cwd();
-
-/**
- * Retrieves the ignore patterns from the .prettierignore file.
- *
- * @returns An array of directory or file names to ignore.
- */
-function getIgnorePatterns(): string[] {
-  const ignorePath = path.resolve(rootDir, '.prettierignore');
-  const patterns = ['.git', 'node_modules', 'dist'];
-
-  if (existsSync(ignorePath)) {
-    const content = readFileSync(ignorePath, 'utf8');
-    const lines = content
-      .split('\n')
-      .map((line) => line.trim())
-      .filter((line) => line !== '' && !line.startsWith('#'));
-
-    for (const line of lines) {
-      patterns.push(line.endsWith('/') ? line.slice(0, -1) : line);
-    }
-  }
-  return patterns;
-}
-
-const ignorePatterns = getIgnorePatterns();
 
 /**
  * Reads, normalizes, and updates the file content if needed.
@@ -74,19 +50,6 @@ async function handleFileContent(absolutePath: string, relativePath: string): Pr
   } catch {
     // Skip binary files or permission issues
   }
-}
-
-/**
- * Checks if a path should be ignored.
- *
- * @param filePath - The absolute path to check.
- * @returns True if the path should be ignored.
- */
-function isIgnored(filePath: string): boolean {
-  const relativePath = path.relative(rootDir, filePath).replaceAll('\\', '/');
-  return ignorePatterns.some((pattern) => {
-    return relativePath === pattern || relativePath.startsWith(`${pattern}/`);
-  });
 }
 
 /**
@@ -118,9 +81,7 @@ function normalizeContent(content: string): { hasChanges: boolean; newContent: s
 async function processFile(filePath: string): Promise<void> {
   const absolutePath = path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath);
 
-  if (!existsSync(absolutePath) || isIgnored(absolutePath)) {
-    return;
-  }
+  if (!existsSync(absolutePath)) return;
 
   try {
     const stats = lstatSync(absolutePath);
@@ -147,7 +108,11 @@ async function run(): Promise<void> {
     console.log('🔍 Searching for non-standard typography (dashes, smart quotes)...');
 
     try {
-      const files = await fs.readdir(rootDir, { recursive: true });
+      const files = await walk({
+        ignoreFiles: ['.gitignore', '.prettierignore'],
+        includeEmpty: false,
+        path: rootDir,
+      });
 
       for (const file of files) {
         const fullPath = path.join(rootDir, file);
