@@ -25,6 +25,33 @@ const args = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 const rootDir = process.cwd();
 
 /**
+ * Recursively gets all files in a directory, skipping ignored ones.
+ *
+ * @param dir - The directory to scan.
+ * @returns A list of relative paths to files.
+ */
+async function getAllFiles(dir: string): Promise<string[]> {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  const files: string[] = [];
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+
+    if (isIgnored(fullPath)) {
+      continue;
+    }
+
+    if (entry.isDirectory()) {
+      files.push(...(await getAllFiles(fullPath)));
+    } else {
+      files.push(path.relative(rootDir, fullPath));
+    }
+  }
+
+  return files;
+}
+
+/**
  * Retrieves the ignore patterns from the .prettierignore file.
  *
  * @returns An array of directory or file names to ignore.
@@ -44,6 +71,7 @@ function getIgnorePatterns(): string[] {
       patterns.push(line.endsWith('/') ? line.slice(0, -1) : line);
     }
   }
+
   return patterns;
 }
 
@@ -118,9 +146,7 @@ function normalizeContent(content: string): { hasChanges: boolean; newContent: s
 async function processFile(filePath: string): Promise<void> {
   const absolutePath = path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath);
 
-  if (!existsSync(absolutePath) || isIgnored(absolutePath)) {
-    return;
-  }
+  if (!existsSync(absolutePath)) return;
 
   try {
     const stats = lstatSync(absolutePath);
@@ -147,7 +173,7 @@ async function run(): Promise<void> {
     console.log('🔍 Searching for non-standard typography (dashes, smart quotes)...');
 
     try {
-      const files = await fs.readdir(rootDir, { recursive: true });
+      const files = await getAllFiles(rootDir);
 
       for (const file of files) {
         const fullPath = path.join(rootDir, file);
