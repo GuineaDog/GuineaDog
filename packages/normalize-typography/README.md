@@ -14,16 +14,17 @@
     <img src="https://img.shields.io/bundlephobia/minzip/@guineadog/normalize-typography" alt="bundle size">
   </a>
   <a href="https://socket.dev/npm/package/@guineadog/normalize-typography">
-    <img src="https://badge.socket.dev/npm/package/@guineadog/normalize-typography/0.3.1" alt="Socket Badge">
+    <img src="https://badge.socket.dev/npm/package/@guineadog/normalize-typography/latest" alt="Socket Badge">
   </a>
   <a href="https://www.typescriptlang.org/">
     <img src="https://img.shields.io/badge/TypeScript-Ready-blue?style=flat&logo=typescript" alt="TypeScript Ready">
   </a>
   <a href="https://nodejs.org">
     <img src="https://img.shields.io/node/v/@guineadog/normalize-typography" alt="Node.js Version">
-  </a></br>
-  <a href="https://nodei.co/npm/@guineadog/normalize-typography/"><img src="https://nodei.co/npm/@guineadog/normalize-typography.svg?data=d,s&color=blue"></a>
+  </a>
 </p>
+
+[![NPM](https://nodei.co/npm/@guineadog/normalize-typography.svg?data=d,s&color=blue)](https://nodei.co/npm/@guineadog/normalize-typography/)
 
 A CLI tool to replace non-standard typography with standard ASCII equivalents. It targets common "smart" characters often introduced by word processors or copy-pasting from styled text.
 
