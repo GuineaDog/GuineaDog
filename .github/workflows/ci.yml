@@ -12,7 +12,7 @@ on:
   pull_request:
   workflow_dispatch:
   #schedule:
-  #  - cron: '0 4 * * *'
+  #  - cron: '0 4 * * *' # At 04:00 UTC # https://crontab.guru/#0_4_*_*_*
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
