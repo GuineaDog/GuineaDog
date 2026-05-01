@@ -64,15 +64,16 @@ async function handleFileContent(absolutePath: string, relativePath: string): Pr
     const { hasChanges, newContent } = normalizeContent(content);
 
     if (!hasChanges) {
+      console.log(relativePath);
       return;
     }
 
     if (isCheckMode) {
-      console.error(`❗ Error: Non-standard typography found in "${relativePath}".`);
+      console.error(`${relativePath} \t ❗ Warning: Non-standard typography found.`);
       process.exitCode = 1;
     } else {
       await fs.writeFile(absolutePath, newContent, 'utf8');
-      console.log(`✅ Fixed: ${relativePath}`);
+      console.log(`${relativePath} \t ✅ Fixed`);
     }
   } catch {
     // Skip binary files or permission issues
@@ -141,6 +142,10 @@ async function run(): Promise<void> {
         path: rootDir,
       });
       files.sort(comparePaths);
+      console.log('Scanned:');
+      if (files.length === 0) {
+        console.log('None');
+      }
 
       for (const file of files) {
         const fullPath = path.join(rootDir, file);
@@ -151,7 +156,7 @@ async function run(): Promise<void> {
     }
 
     if (process.exitCode === 1) {
-      console.log('\n❗ Check failed. Use "npx normalize-typography" to auto-fix.');
+      console.log('\n❗ Warning: Non-standard typography found. Use "npx normalize-typography" to auto-fix.');
     } else {
       console.log('\n✅ Done!');
     }
