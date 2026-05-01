@@ -41,5 +41,11 @@
   "license": "MIT",
   "engines": {
     "node": "^22 || ^24"
+  },
+  "dependencies": {
+    "ignore-walk": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/ignore-walk": "^4.0.3"
   }
 }
