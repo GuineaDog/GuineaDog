@@ -1,14 +1,8 @@
 .git/
-build/
-**/build/**
 coverage/
-dist/
-node_modules/
 packages/normalize-typography/README.md
 reports/
-**/*.gradle
 .prettierignore
-pre-commit
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
