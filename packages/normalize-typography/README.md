@@ -76,6 +76,17 @@ Then run it using your package manager:
 npm run format:typography
 ```
 
+Result:
+
+```
+🔍 Searching for non-standard typography (dashes, smart quotes)...
+Scanned:
+fixme.ts       ✅ Fixed
+ok.ts
+
+✅ Done!
+```
+
 ### CLI Options
 
 You can use the full command `normalize-typography` or the shortened alias: `nrm-tpgr`.
@@ -90,6 +101,17 @@ npx @guineadog/normalize-typography
 
 ```
 npx @guineadog/normalize-typography --check
+```
+
+Result:
+
+```
+🔍 Searching for non-standard typography (dashes, smart quotes)...
+Scanned:
+fixme.ts       ❗ Warning: Non-standard typography found.
+ok.ts
+
+❗ Warning: Non-standard typography found. Use "npx normalize-typography" to auto-fix.
 ```
 
 #### Specific files
