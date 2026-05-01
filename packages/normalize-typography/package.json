@@ -10,7 +10,8 @@
     "nrm-tpgr": "dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/guineadog-normalize-typography-*.tgz"
   ],
   "scripts": {
     "clean": "rimraf dist",
