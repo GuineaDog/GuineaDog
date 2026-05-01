@@ -26,6 +26,33 @@ const args = process.argv.slice(2).filter((arg) => !arg.startsWith('--'));
 const rootDir = process.cwd();
 
 /**
+ * Compares two file paths such that directories come before files at each level,
+ * maintaining hierarchical and alphabetical order.
+ *
+ * @param a - The first path.
+ * @param b - The second path.
+ * @returns A number indicating the sort order.
+ */
+function comparePaths(a: string, b: string): number {
+  const partsA = a.split('/');
+  const partsB = b.split('/');
+  const len = Math.min(partsA.length, partsB.length);
+
+  for (let i = 0; i < len; i++) {
+    if (partsA[i] !== partsB[i]) {
+      const isDirA = i < partsA.length - 1;
+      const isDirB = i < partsB.length - 1;
+      if (isDirA !== isDirB) {
+        return isDirA ? -1 : 1;
+      }
+      return partsA[i].localeCompare(partsB[i]);
+    }
+  }
+
+  return partsA.length - partsB.length;
+}
+
+/**
  * Reads, normalizes, and updates the file content if needed.
  *
  * @param absolutePath - The absolute path to the file.
@@ -113,6 +140,7 @@ async function run(): Promise<void> {
         includeEmpty: false,
         path: rootDir,
       });
+      files.sort(comparePaths);
 
       for (const file of files) {
         const fullPath = path.join(rootDir, file);
