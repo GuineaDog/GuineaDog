@@ -41,7 +41,7 @@ async function handleFileContent(absolutePath: string, relativePath: string): Pr
     }
 
     if (isCheckMode) {
-      console.error(`❌ Error: Non-standard typography found in "${relativePath}".`);
+      console.error(`❗ Error: Non-standard typography found in "${relativePath}".`);
       process.exitCode = 1;
     } else {
       await fs.writeFile(absolutePath, newContent, 'utf8');
@@ -123,7 +123,7 @@ async function run(): Promise<void> {
     }
 
     if (process.exitCode === 1) {
-      console.log('\n❌ Check failed. Use "npx normalize-typography" to auto-fix.');
+      console.log('\n❗ Check failed. Use "npx normalize-typography" to auto-fix.');
     } else {
       console.log('\n✅ Done!');
     }
