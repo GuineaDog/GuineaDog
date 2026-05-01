@@ -18,7 +18,7 @@
     "test": "node --import tsx --test *.test.ts",
     "build": "tsc --project tsconfig.json",
     "pack": "npm pack --pack-destination ./dist",
-    "prepublishOnly": "npm run clean && npm run build && npm run pack"
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
