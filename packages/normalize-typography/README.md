@@ -80,11 +80,13 @@ Result:
 
 ```
 🔍 Searching for non-standard typography (dashes, smart quotes)...
-Scanned:
+path/fixme.txt       ✅ Fixed
 fixme.ts       ✅ Fixed
 ok.ts
 
-✅ Done!
+✅ Fixed:
+path/fixme.txt
+fixme.txt
 ```
 
 ### CLI Options
@@ -107,11 +109,13 @@ Result:
 
 ```
 🔍 Searching for non-standard typography (dashes, smart quotes)...
-Scanned:
+path/fixme.txt       ❗ Warning: Non-standard typography found.
 fixme.ts       ❗ Warning: Non-standard typography found.
 ok.ts
 
-❗ Warning: Non-standard typography found. Use "npx normalize-typography" to auto-fix.
+❗ Warning: Non-standard typography found. Use "npx normalize-typography" to auto-fix it:
+path/fixme.txt
+fixme.txt
 ```
 
 #### Specific files
