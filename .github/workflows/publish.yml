@@ -44,6 +44,6 @@ jobs:
           echo "path: $PKG_PATH"
           echo "path=$PKG_PATH" >> $GITHUB_OUTPUT
       - run: npm run clean
-      #- run: npm publish -w ${{ steps.pkg.outputs.path }} --access public --provenance
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish -w ${{ steps.pkg.outputs.path }} --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
