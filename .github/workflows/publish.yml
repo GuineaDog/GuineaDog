@@ -37,7 +37,7 @@ jobs:
             TAG="${{ github.event.inputs.tag }}"
           else
             # Default for PR testing
-            TAG="@guineadog/normalize-typography@0.0.0-test"
+            TAG="@guineadog/normalize-typography@1.2.3-test"
             echo "Notice: Workflow triggered without tag. Using fallback for testing: $TAG"
           fi
 
@@ -46,6 +46,12 @@ jobs:
           # Extract everything before the last '@'
           PKG_NAME=$(echo "$TAG" | sed 's/@[^@]*$//')
           echo "Package Name: $PKG_NAME"
+
+          echo "--- Debug: All workspaces ---"
+          npm query ".workspace" | jq -r '.[].name'
+
+          echo "--- Debug: Filtered workspace ---"
+          npm query ".workspace" | jq --arg PKG_NAME "$PKG_NAME" '.[] | select(.name == $PKG_NAME)'
 
           # Find the workspace directory for this package
           # PKG_PATH will be something like "packages/normalize-typography"
