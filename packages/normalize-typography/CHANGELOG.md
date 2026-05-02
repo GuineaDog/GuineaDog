@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.4.0] - 2026-05-01
+## [0.4.0](https://github.com/GuineaDog/GuineaDog/compare/@guineadog/normalize-typography@0.3.3...@guineadog/normalize-typography@0.4.0) (2026-05-02)
 
 ### Added
 
@@ -19,21 +19,21 @@ All notable changes to this project will be documented in this file.
 - Excluded build artifacts from npm publication to reduce package size.
 - Fixed file discovery - now respects .gitignore and .prettierignore.
 
-## [0.3.3] - 2026-05-01
+## [0.3.3](https://github.com/GuineaDog/GuineaDog/compare/@guineadog/normalize-typography@0.3.1...@guineadog/normalize-typography@0.3.3) (2026-05-01)
 
 _This release focuses on infrastructure, documentation, and tooling improvements. No functional changes were made to the package code._
 
-## [0.3.1] - 2026-04-30
+## [0.3.1](https://github.com/GuineaDog/GuineaDog/compare/@guineadog/normalize-typography@0.3.0...@guineadog/normalize-typography@0.3.1) (2026-04-30)
 
 _This release focuses on infrastructure, documentation, and tooling improvements. No functional changes were made to the package code._
 
-## [0.3.0] - 2026-04-30
+## 0.3.0 (2026-04-30)
 
 ### Changed
 
 - Refactored `@guineadog/normalize-typography` to remove `glob` dependency and enforce Node.js 22+.
 
-## [0.1.0] - 2026-04-29
+## 0.1.0 (2026-04-29)
 
 ### Added
 
