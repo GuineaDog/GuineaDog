@@ -4,12 +4,6 @@ on:
   push:
     tags:
       - '@guineadog/*@*.*.*'
-  pull_request:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Tag to simulate (e.g. @guineadog/pkg@1.0.0)'
-        required: false
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
@@ -27,27 +21,28 @@ jobs:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      #- name: Identify package
-      #  id: pkg
-      #  run: |
-      #    # The tag format is @scope/pkg-name@version, e.g., @guineadog/normalize-typography@0.4.0
-      #    TAG=${GITHUB_REF#refs/tags/}
-      #
-      #    # Extract everything before the last '@'
-      #    PKG_NAME=$(echo "$TAG" | sed 's/@[^@]*$//')
-      #    echo "Package Name: $PKG_NAME"
-      #
-      #    # Find the workspace directory for this package
-      #    # PKG_PATH will be something like "packages/normalize-typography"
-      #    PKG_PATH=$(npm query ".workspace | select(.name == \"$PKG_NAME\")" | jq -r '.[0].location')
-      #
-      #    if [ -z "$PKG_PATH" ] || [ "$PKG_PATH" == "null" ]; then
-      #      echo "Error: Could not find workspace for package $PKG_NAME"
-      #      exit 1
-      #    fi
-      #
-      #    echo "path: $PKG_PATH"
-      #    echo "path=$PKG_PATH" >> $GITHUB_OUTPUT
+      - name: Identify package
+        id: pkg
+        run: |
+          # The tag format is @scope/pkg-name@version, e.g., @guineadog/normalize-typography@0.4.0
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "tag: $TAG"
+
+          # Extract everything before the last '@'
+          PKG_NAME=$(echo "$TAG" | sed 's/@[^@]*$//')
+          echo "Package Name: $PKG_NAME"
+
+          # Find the workspace directory for this package
+          # PKG_PATH will be something like "packages/normalize-typography"
+          PKG_PATH=$(npm query ".workspace" | jq -r --arg PKG_NAME "$PKG_NAME" '.[] | select(.name == $PKG_NAME) | .location')
+
+          if [ -z "$PKG_PATH" ] || [ "$PKG_PATH" == "null" ]; then
+            echo "Error: Could not find workspace for package $PKG_NAME"
+            exit 1
+          fi
+
+          echo "path: $PKG_PATH"
+          echo "path=$PKG_PATH" >> $GITHUB_OUTPUT
       - run: npm run clean
       #- run: npm publish -w ${{ steps.pkg.outputs.path }} --access public --provenance
       #  env:
