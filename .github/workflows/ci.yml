@@ -104,14 +104,24 @@ jobs:
         run: npm run test
         continue-on-error: true
 
-      - name: Prune dependencies (only report)
+      - name: Prune dependencies
         id: prune_deps
-        run: npm prune --dry-run
+        run: |
+          echo "Prune dependencies for workspaces"
+          npm prune --workspaces
+          echo ""
+          echo "Prune dependencies for root"
+          npm prune
         continue-on-error: true
 
-      - name: Deduplicate dependencies (only report)
+      - name: Deduplicate dependencies
         id: dedupe_deps
-        run: npm dedupe --dry-run
+        run: |
+          echo "Deduplicate dependencies for workspaces"
+          npm dedupe --workspaces
+          echo ""
+          echo "Deduplicate dependencies for root"
+          npm dedupe
         continue-on-error: true
 
       - name: Run Knip (unused code and deps)
@@ -126,12 +136,22 @@ jobs:
 
       - name: Check for outdated dependencies
         id: outdated_deps
-        run: npm outdated
+        run: |
+          echo "Outdated dependencies for workspaces"
+          npm outdated --workspaces
+          echo ""
+          echo "Outdated dependencies for root"
+          npm outdated
         continue-on-error: true
 
       - name: Security audit
         id: audit_deps
-        run: npm audit
+        run: |
+          echo "Security audit for workspaces"
+          npm audit --workspaces
+          echo ""
+          echo "Security audit for root"
+          npm audit
         continue-on-error: true
 
       - name: Create Workflow Summary
