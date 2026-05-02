@@ -1,0 +1,53 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '@guineadog/*@*.*.*'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - name: Identify package
+        id: pkg
+        run: |
+          # The tag format is @scope/pkg-name@version, e.g., @guineadog/normalize-typography@0.4.0
+          TAG=${GITHUB_REF#refs/tags/}
+
+          # Extract everything before the last '@'
+          PKG_NAME=$(echo "$TAG" | sed 's/@[^@]*$//')
+          PKG_NAME_MSG="Package Name: $PKG_NAME"
+          echo "$PKG_NAME_MSG"
+          echo "$PKG_NAME_MSG" >> $GITHUB_OUTPUT
+
+          # Find the workspace directory for this package
+          # PKG_PATH will be something like "packages/normalize-typography"
+          PKG_PATH=$(npm query ".workspace | select(.name == \"$PKG_NAME\")" | jq -r '.[0].location')
+
+          if [ -z "$PKG_PATH" ] || [ "$PKG_PATH" == "null" ]; then
+            ERR_MSG="Error: Could not find workspace for package $PKG_NAME"
+            echo "$ERR_MSG"
+            echo "$ERR_MSG" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+          PKG_PATH_MSG="path=$PKG_PATH"
+          echo "$PKG_PATH_MSG"
+          echo "$PKG_PATH_MSG" >> $GITHUB_OUTPUT
+      - run: npm run clean
+      #- run: npm publish -w ${{ steps.pkg.outputs.path }} --access public --provenance
+      #  env:
+      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
