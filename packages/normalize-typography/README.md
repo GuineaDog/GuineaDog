@@ -93,7 +93,7 @@ fixme.txt
 
 You can use the full command `normalize-typography` or the shortened alias: `nrm-tpgr`.
 
-#### Auto-fix everything (respects `.prettierignore` - check https://github.com/GuineaDog/GuineaDog/issues/5)
+#### Auto-fix everything (respects `.gitignore` and `.prettierignore`)
 
 ```
 npx @guineadog/normalize-typography
@@ -140,12 +140,11 @@ npm install -g @guineadog/normalize-typography@latest
 
 ## Known issues
 
-- Incorrectly ignores files/folders specified in the '.prettierignore' file (https://github.com/GuineaDog/GuineaDog/issues/5)
+None.
 
 ## Roadmap
 
 - Add config file (https://github.com/GuineaDog/GuineaDog/issues/4)
-- Show list of scanned files in sorted order (https://github.com/GuineaDog/GuineaDog/issues/6)
 
 ## Changelog
 
