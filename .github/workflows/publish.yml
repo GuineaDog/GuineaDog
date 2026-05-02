@@ -29,24 +29,19 @@ jobs:
 
           # Extract everything before the last '@'
           PKG_NAME=$(echo "$TAG" | sed 's/@[^@]*$//')
-          PKG_NAME_MSG="Package Name: $PKG_NAME"
-          echo "$PKG_NAME_MSG"
-          echo "$PKG_NAME_MSG" >> $GITHUB_OUTPUT
+          echo "Package Name: $PKG_NAME"
 
           # Find the workspace directory for this package
           # PKG_PATH will be something like "packages/normalize-typography"
           PKG_PATH=$(npm query ".workspace | select(.name == \"$PKG_NAME\")" | jq -r '.[0].location')
 
           if [ -z "$PKG_PATH" ] || [ "$PKG_PATH" == "null" ]; then
-            ERR_MSG="Error: Could not find workspace for package $PKG_NAME"
-            echo "$ERR_MSG"
-            echo "$ERR_MSG" >> $GITHUB_OUTPUT
+            echo "Error: Could not find workspace for package $PKG_NAME"
             exit 1
           fi
 
-          PKG_PATH_MSG="path=$PKG_PATH"
-          echo "$PKG_PATH_MSG"
-          echo "$PKG_PATH_MSG" >> $GITHUB_OUTPUT
+          echo "path: $PKG_PATH"
+          echo "path=$PKG_PATH" >> $GITHUB_OUTPUT
       - run: npm run clean
       #- run: npm publish -w ${{ steps.pkg.outputs.path }} --access public --provenance
       #  env:
