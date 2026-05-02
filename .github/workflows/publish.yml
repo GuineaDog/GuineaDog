@@ -27,43 +27,6 @@ jobs:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - name: SIMULATION Identify package
-        id: pkg
-        run: |
-          # The tag format is @scope/pkg-name@version, e.g., @guineadog/normalize-typography@0.4.0
-          if [[ $GITHUB_REF == refs/tags/* ]]; then
-            TAG=${GITHUB_REF#refs/tags/}
-          elif [[ -n "${{ github.event.inputs.tag }}" ]]; then
-            TAG="${{ github.event.inputs.tag }}"
-          else
-            # Default for PR testing
-            TAG="@guineadog/normalize-typography@1.2.3-test"
-            echo "Notice: Workflow triggered without tag. Using fallback for testing: $TAG"
-          fi
-
-          echo "tag: $TAG"
-
-          # Extract everything before the last '@'
-          PKG_NAME=$(echo "$TAG" | sed 's/@[^@]*$//')
-          echo "Package Name: $PKG_NAME"
-
-          echo "--- Debug: All workspaces ---"
-          npm query ".workspace" | jq -r '.[].name'
-
-          echo "--- Debug: Filtered workspace ---"
-          npm query ".workspace" | jq --arg PKG_NAME "$PKG_NAME" '.[] | select(.name == $PKG_NAME)'
-
-          # Find the workspace directory for this package
-          # PKG_PATH will be something like "packages/normalize-typography"
-          PKG_PATH=$(npm query ".workspace" | jq -r --arg PKG_NAME "$PKG_NAME" '.[] | select(.name == $PKG_NAME) | .location')
-
-          if [ -z "$PKG_PATH" ] || [ "$PKG_PATH" == "null" ]; then
-            echo "Error: Could not find workspace for package $PKG_NAME"
-            exit 1
-          fi
-
-          echo "path: $PKG_PATH"
-          echo "path=$PKG_PATH" >> $GITHUB_OUTPUT
       #- name: Identify package
       #  id: pkg
       #  run: |
