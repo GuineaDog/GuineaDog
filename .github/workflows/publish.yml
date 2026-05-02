@@ -49,7 +49,7 @@ jobs:
 
           # Find the workspace directory for this package
           # PKG_PATH will be something like "packages/normalize-typography"
-          PKG_PATH=$(npm query ".workspace | select(.name == \"$PKG_NAME\")" | jq -r '.[0].location')
+          PKG_PATH=$(npm query ".workspace" | jq -r --arg PKG_NAME "$PKG_NAME" '.[] | select(.name == $PKG_NAME) | .location')
 
           if [ -z "$PKG_PATH" ] || [ "$PKG_PATH" == "null" ]; then
             echo "Error: Could not find workspace for package $PKG_NAME"
