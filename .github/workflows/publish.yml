@@ -13,7 +13,7 @@ jobs:
   publish:
     name: Publish Package
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
+    # if: startsWith(github.ref, 'refs/tags/')
     permissions:
       contents: read
       id-token: write
@@ -29,6 +29,10 @@ jobs:
         id: check_branch
         run: |
           echo "publish=false" >> $GITHUB_OUTPUT
+
+          GH_REF="Current github.ref: ${{ github.ref }}"
+          echo "$GH_REF"
+          echo "$GH_REF" >> $GITHUB_STEP_SUMMARY
 
           CURR_BRANCH="Current branch/ref: ${{ env.BRANCH_NAME }}"
           echo "$CURR_BRANCH"
