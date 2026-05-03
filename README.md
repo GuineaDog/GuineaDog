@@ -6,14 +6,14 @@ GuineaDog is a DX toolkit and automation scripts collection designed to improve 
 
 ### Available
 
-- [![npm version](https://img.shields.io/npm/v/@guineadog/normalize-typography.svg)](https://www.npmjs.com/package/@guineadog/normalize-typography) `packages\normalize-typography\`: Standardizes non-ASCII typography (quotes, dashes) for consistent codebase style.
+- [![npm version](https://img.shields.io/npm/v/@guineadog/normalize-typography.svg)](https://www.npmjs.com/package/@guineadog/normalize-typography) [`packages/normalize-typography/`](packages/normalize-typography/README.md): Standardizes non-ASCII typography (quotes, dashes) for consistent codebase style.
 
-### Planned for Migration
+### Roadmap
 
-- **`android-version-sync`**: Automatically synchronizes versions between `package.json` and Android `build.gradle`.
-- **`localization-tools`**: Tools for auditing unused keys, syncing locales, and validating translations.
-- **`metrics-history`**: Collects and visualizes (via charts) project quality metrics over time.
-- **`report-summarizer`**: Generates clean Markdown summaries for Test Coverage and Stryker Mutation analysis.
+- [**`android-version-sync`**](https://github.com/GuineaDog/GuineaDog/issues/20): Automatically synchronizes versions between `package.json` and Android `build.gradle`.
+- [**`localization-tools`**](https://github.com/GuineaDog/GuineaDog/issues/21): Tools for auditing unused keys, syncing locales, and validating translations.
+- [**`metrics-history`**](https://github.com/GuineaDog/GuineaDog/issues/22): Collects and visualizes (via charts) project quality metrics over time.
+- [**`report-summarizer`**](https://github.com/GuineaDog/GuineaDog/issues/23): Generates clean Markdown summaries for Test Coverage and Stryker Mutation analysis.
 
 ## Development Commands
 
