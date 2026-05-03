@@ -1,18 +1,33 @@
 # Package Publishing Guide
 
-This monorepo uses NPM workspaces to manage packages. Below is the process for updating and publishing new versions.
+This monorepo uses NPM workspaces to manage packages. Below is the process for publishing new releases.
 
 ## 1. Preparation and Verification
 
 Before publishing, ensure the package builds correctly and all tests pass - check commands in the [Quick Start Guide](QUICKSTART.md).
+Also make sure that all necessary changes are merged into the `main` branch.
 
-## 2. Update Changelog
+## 2. Create a Release Branch
+
+```
+git checkout -b release/<package-name>-<version>
+```
+
+_Example:_
+
+```
+git checkout -b release/normalize-typography-0.4.0
+```
+
+## 3. Update Changelog
 
 Update the `CHANGELOG.md` file in the package directory (`packages/<package-name>/CHANGELOG.md`) with the new version and changes.
 
-## 3. Version Update
+## 4. Version Update
 
-Update the version in the package's `package.json` and the root `package-lock.json`.
+This command will update the version in the `packages/<package-name>/package.json` file and in the root `package-lock.json` file.
+
+Check https://semver.org/ and https://docs.npmjs.com/about-semantic-versioning for difference between `patch|minor|major`.
 
 ```
 npm version <patch|minor|major> -w packages/<package-name>
@@ -24,60 +39,65 @@ _Example:_
 npm version minor -w packages/normalize-typography
 ```
 
-## 4. Committing Changes to Git
+## 5. Committing Changes to Git
 
-When using workspaces, `npm version` updates the files but often does not create a commit or tag automatically. This must be done manually:
+When using workspaces, `npm version` updates the files but often does not create a commit automatically. This must be done manually:
+
+1. Add files to commit:
+
+   ```
+   git add ./package-lock.json ./packages/<package-name>/package.json ./packages/<package-name>/CHANGELOG.md
+   ```
+
+   _Example:_
+
+   ```
+   git add ./package-lock.json ./packages/normalize-typography/package.json ./packages/normalize-typography/CHANGELOG.md
+   ```
+
+2. Create commit:
+
+   ```
+   git commit -m "chore(release): @guineadog/<package-name>@<version>"
+   ```
+
+   _Example:_
+
+   ```
+   git commit -m "chore(release): @guineadog/normalize-typography@0.3.0"
+   ```
+
+3. Push commit(s) to the remote repository.
+   ```
+   git push
+   ```
+
+## 6. Pull Request (PR)
+
+Create, review and merge it into the `main` branch. This will allow you to pass CI checks, linting and tests.
+
+## 7. Push the Tag to the Remote Repository on the `main` Branch
+
+**❗❗❗ ONCE MORE: SWITCH TO THE `main` BRANCH AND UPDATE IT❗❗❗**
 
 ```
-# Create a commit
-git commit -m "chore(release): <package-name> v<version>"
+git checkout main && git fetch && git pull
+```
 
-# Create a tag (recommended format: package@version)
-git tag <package-name>@<version>
+Create a tag and push it:
+
+```
+git tag @guineadog/<package-name>@<version>
+git push origin @guineadog/<package-name>@<version>
 ```
 
 _Example:_
 
 ```
-git commit -m "chore(release): @guineadog/normalize-typography v0.3.0"
-
 git tag @guineadog/normalize-typography@0.3.0
+git push origin @guineadog/normalize-typography@0.3.0
 ```
 
-## 5. Publishing to NPM
+When you push a tag to GitHub, the `publish` workflow ([.github/workflows/publish.yml](.github/workflows/publish.yml)) will automatically build and publish the package to NPM (https://www.npmjs.com/): check https://github.com/GuineaDog/GuineaDog/actions/workflows/publish.yml
 
-Since these packages are under the `@guineadog` scope, you must use the `--access public` flag. We also use the `--provenance` flag to provide a verifiable link between the package and its source code.
-
-### Option A: CI Publishing (Recommended)
-
-When you push a tag to GitHub, the `Publish` workflow ([.github/workflows/publish.yml](.github/workflows/publish.yml)) will automatically build and publish the package to NPM.
-
-1. Ensure you have updated the version and created a tag locally.
-2. Push the tag: `git push origin <tag-name>`.
-3. The GitHub Action will handle the rest.
-
-### Option B: Manual Publishing (from local machine)
-
-```
-cd ./packages/<package-name>/ && npm run clean && cd ../../
-npm publish -w packages/<package-name> --access public --provenance
-```
-
-_Example:_
-
-```
-cd ./packages/normalize-typography/ && npm run clean && cd ../../
-npm publish -w packages/normalize-typography --access public --provenance
-```
-
-## 6. Completion
-
-Push the commit and tags to the remote repository:
-
-```
-git push origin main --tags
-```
-
----
-
-**Tip:** Make sure you are logged into NPM (`npm login`) before attempting to publish.
+Since these packages are under the `@guineadog` scope, we must use the `--access public` flag. We also use the `--provenance` flag to provide a verifiable link between the package and its source code. Both flags are specified in the `publish` workflow mentioned above.
