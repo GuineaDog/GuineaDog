@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.1](https://github.com/GuineaDog/GuineaDog/compare/@guineadog/normalize-typography@0.4.0...@guineadog/normalize-typography@0.4.1) (2026-05-04)
+
+_This release focuses on infrastructure, documentation, and tooling improvements. No functional changes were made to the package code._
+
+### Fixed
+
+- Fixed incorrect usage example in `package/normalize-typography/README.md`
+
+### Changed
+
+- Updated documentation (readme and publishing files).
+
 ## [0.4.0](https://github.com/GuineaDog/GuineaDog/compare/@guineadog/normalize-typography@0.3.3...@guineadog/normalize-typography@0.4.0) (2026-05-03)
 
 ### Added
