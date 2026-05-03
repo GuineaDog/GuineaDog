@@ -20,7 +20,7 @@
     <img src="https://img.shields.io/badge/TypeScript-Ready-blue?style=flat&logo=typescript" alt="TypeScript Ready">
   </a>
   <a href="https://nodejs.org">
-    <img src="https://img.shields.io/node/v/@guineadog/normalize-typography" alt="Node.js Version">
+    <img src="https://img.shields.io/node/v/@guineadog/normalize-typography?logo=Node.js" alt="Node.js Version">
   </a>
 </p>
 
