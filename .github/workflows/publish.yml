@@ -28,8 +28,9 @@ jobs:
       - name: Verify Tag is on Main Branch
         id: check_branch
         run: |
-          echo "Current branch/ref: ${{ env.BRANCH_NAME }}"
-          echo "Current branch/ref: ${{ env.BRANCH_NAME }}" >> $GITHUB_STEP_SUMMARY
+          CURR_BRANCH="Current branch/ref: ${{ env.BRANCH_NAME }}"
+          echo "$CURR_BRANCH"
+          echo "$CURR_BRANCH" >> $GITHUB_STEP_SUMMARY
 
           # The tag format is @scope/pkg-name@version, e.g., @guineadog/normalize-typography@0.4.0
           TAG_NAME=${GITHUB_REF#refs/tags/}
