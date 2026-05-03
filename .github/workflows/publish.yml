@@ -31,8 +31,10 @@ jobs:
           echo "Current branch/ref: ${{ env.BRANCH_NAME }}"
           echo "Current branch/ref: ${{ env.BRANCH_NAME }}" >> $GITHUB_STEP_SUMMARY
 
+          # The tag format is @scope/pkg-name@version, e.g., @guineadog/normalize-typography@0.4.0
           TAG_NAME=${GITHUB_REF#refs/tags/}
           echo "Triggered by tag: $TAG_NAME"
+          echo "TAG=$TAG_NAME" >> $GITHUB_OUTPUT
 
           # Fetch the latest main branch to compare
           git fetch origin main:main
@@ -67,9 +69,8 @@ jobs:
         if: steps.check_branch.outputs.publish == 'true'
         id: pkg
         run: |
-          # The tag format is @scope/pkg-name@version, e.g., @guineadog/normalize-typography@0.4.0
-          TAG=${GITHUB_REF#refs/tags/}
-          echo "tag: $TAG"
+          TAG="${{ steps.check_branch.outputs.TAG }}"
+          echo "Triggered by tag: $TAG"
 
           # Extract everything before the last '@'
           PKG_NAME="${TAG%@*}"
