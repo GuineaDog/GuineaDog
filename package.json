@@ -16,7 +16,7 @@
     "lint:deps": "depcruise packages --config .dependency-cruiser.cjs",
     "lint:fix": "eslint . --fix --max-warnings 0",
     "nrm-tpgr": "node packages/normalize-typography/dist/index.js",
-    "nrm-tpgr:check": "nrm-tpgr -- --check",
+    "nrm-tpgr:check": "npm run nrm-tpgr -- --check",
     "prepare": "husky",
     "test": "npm test --workspaces --if-present"
   },
