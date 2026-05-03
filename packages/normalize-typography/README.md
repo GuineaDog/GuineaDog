@@ -64,7 +64,7 @@ If installed locally, you can add it to your `package.json` scripts:
 ```json
 {
   "scripts": {
-    "nrm-tpgr": "normalize-typography"
+    "nrm-tpgr": "normalize-typography",
     "nrm-tpgr:check": "nrm-tpgr -- --check"
   }
 }
