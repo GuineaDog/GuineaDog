@@ -179,6 +179,7 @@ None.
 ## Roadmap
 
 - Add config file (https://github.com/GuineaDog/GuineaDog/issues/4)
+- Add the line number and text of the line containing the non-standard typographic characters to be replaced (https://github.com/GuineaDog/GuineaDog/issues/18)
 
 ## Changelog
 
