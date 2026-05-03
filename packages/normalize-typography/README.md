@@ -24,8 +24,6 @@
   </a>
 </p>
 
-[![NPM](https://nodei.co/npm/@guineadog/normalize-typography.svg?data=d,s&color=blue)](https://nodei.co/npm/@guineadog/normalize-typography/)
-
 A CLI tool to replace non-standard typography with standard ASCII equivalents. It targets common "smart" characters often introduced by word processors or copy-pasting from styled text.
 
 ## What it fixes:
