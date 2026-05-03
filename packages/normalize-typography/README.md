@@ -16,7 +16,7 @@
   <a href="https://socket.dev/npm/package/@guineadog/normalize-typography">
     <img src="https://badge.socket.dev/npm/package/@guineadog/normalize-typography/latest" alt="Socket Badge">
   </a>
-  <a href="https://www.typescriptlang.org/">
+  <a href="https://www.npmjs.com/package/@guineadog/normalize-typography">
     <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript logo">
   </a>
   <a href="https://nodejs.org">
