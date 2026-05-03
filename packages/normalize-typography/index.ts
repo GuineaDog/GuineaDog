@@ -94,7 +94,7 @@ async function handleFileContent(absolutePath: string, relativePath: string): Pr
     }
 
     if (isCheckMode) {
-      console.error(`${relativePath} \t ❗ Warning: Non-standard typography found.`);
+      console.warn(`${relativePath} \t ❗ Warning: Non-standard typography found.`);
       process.exitCode = 1;
     } else {
       await fs.writeFile(absolutePath, newContent, 'utf8');
