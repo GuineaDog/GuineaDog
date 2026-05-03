@@ -2,31 +2,31 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@guineadog/normalize-typography">
-    <img src="https://img.shields.io/npm/v/@guineadog/normalize-typography.svg" alt="npm version">
+    <img src="https://img.shields.io/npm/v/@guineadog/normalize-typography.svg?logo=npm" alt="npm version">
   </a>
   <a href="https://github.com/GuineaDog/GuineaDog/actions/workflows/ci.yml">
     <img src="https://github.com/GuineaDog/GuineaDog/actions/workflows/ci.yml/badge.svg" alt="CI">
   </a>
   <a href="https://www.npmjs.com/package/@guineadog/normalize-typography">
-    <img src="https://img.shields.io/npm/dm/@guineadog/normalize-typography.svg" alt="npm downloads">
+    <img src="https://img.shields.io/npm/dm/@guineadog/normalize-typography?logo=npm" alt="npm downloads">
   </a>
   <a href="https://bundlephobia.com/package/@guineadog/normalize-typography">
-    <img src="https://img.shields.io/bundlephobia/minzip/@guineadog/normalize-typography" alt="bundle size">
+    <img src="https://img.shields.io/bundlephobia/min/@guineadog/normalize-typography" alt="minified size">
   </a>
   <a href="https://socket.dev/npm/package/@guineadog/normalize-typography">
     <img src="https://badge.socket.dev/npm/package/@guineadog/normalize-typography/latest" alt="Socket Badge">
   </a>
-  <a href="https://www.typescriptlang.org/">
-    <img src="https://img.shields.io/badge/TypeScript-Ready-blue?style=flat&logo=typescript" alt="TypeScript Ready">
+  <a href="https://www.npmjs.com/package/@guineadog/normalize-typography">
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript logo">
   </a>
   <a href="https://nodejs.org">
-    <img src="https://img.shields.io/node/v/@guineadog/normalize-typography" alt="Node.js Version">
+    <img src="https://img.shields.io/node/v/@guineadog/normalize-typography?logo=Node.js" alt="Node.js Version">
   </a>
 </p>
 
-[![NPM](https://nodei.co/npm/@guineadog/normalize-typography.svg?data=d,s&color=blue)](https://nodei.co/npm/@guineadog/normalize-typography/)
-
 A CLI tool to replace non-standard typography with standard ASCII equivalents. It targets common "smart" characters often introduced by word processors or copy-pasting from styled text.
+
+https://www.npmjs.com/package/@guineadog/normalize-typography
 
 ## What it fixes:
 
@@ -64,8 +64,8 @@ If installed locally, you can add it to your `package.json` scripts:
 ```json
 {
   "scripts": {
-    "format:typography": "normalize-typography",
-    "lint:typography": "normalize-typography --check"
+    "nrm-tpgr": "normalize-typography",
+    "nrm-tpgr:check": "nrm-tpgr -- --check"
   }
 }
 ```
@@ -73,7 +73,7 @@ If installed locally, you can add it to your `package.json` scripts:
 Then run it using your package manager:
 
 ```
-npm run format:typography
+npm run nrm-tpgr
 ```
 
 Result:
@@ -124,6 +124,30 @@ fixme.txt
 npx @guineadog/normalize-typography src/index.js README.md
 ```
 
+### If you use `lint-staged` (https://www.npmjs.com/package/lint-staged)
+
+Add to the `lint-staged` section in the root `package.json`. **Note**: `nrm-tpgr` alias should be added to the `scripts` section in the root `package.json`.
+
+1. To auto fix files that need to be committed:
+   ```json
+     "lint-staged": {
+       "*": [
+         ...,
+         "npm run nrm-tpgr"
+       ],
+     },
+   ```
+
+2. To check for files that need to be committed (and to prevent committing if non-standard typography is present):
+   ```json
+     "lint-staged": {
+       "*": [
+         ...,
+         "npm run nrm-tpgr:check"
+       ],
+     },
+   ```
+
 ### Update
 
 To update the tool to the latest version:
@@ -145,6 +169,7 @@ None.
 ## Roadmap
 
 - Add config file (https://github.com/GuineaDog/GuineaDog/issues/4)
+- Add the line number and text of the line containing the non-standard typographic characters to be replaced (https://github.com/GuineaDog/GuineaDog/issues/18)
 
 ## Changelog
 
