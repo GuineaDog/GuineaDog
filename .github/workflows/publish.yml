@@ -28,6 +28,8 @@ jobs:
       - name: Verify Tag is on Main Branch
         id: check_branch
         run: |
+          echo "publish=false" >> $GITHUB_OUTPUT
+
           CURR_BRANCH="Current branch/ref: ${{ env.BRANCH_NAME }}"
           echo "$CURR_BRANCH"
           echo "$CURR_BRANCH" >> $GITHUB_STEP_SUMMARY
@@ -49,7 +51,6 @@ jobs:
             echo "### ✅ Publication triggered for tag: $TAG_NAME :rocket:" >> $GITHUB_STEP_SUMMARY
             echo "publish=true" >> $GITHUB_OUTPUT
           else
-            echo "publish=false" >> $GITHUB_OUTPUT
             ERROR_MSG="❌❌❌ :x: Error: Tag $TAG_NAME was not created from the 'main' branch. Releasing from other branches is prohibited. ❌❌❌"
             echo "$ERROR_MSG"
             echo "$ERROR_MSG" >> $GITHUB_STEP_SUMMARY
