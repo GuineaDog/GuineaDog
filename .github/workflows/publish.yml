@@ -34,6 +34,9 @@ jobs:
           # The tag format is @scope/pkg-name@version, e.g., @guineadog/normalize-typography@0.4.0
           TAG_NAME=${GITHUB_REF#refs/tags/}
           echo "Triggered by tag: $TAG_NAME"
+
+          TAG_NAME="@guineadog/normalize-typography@1.2.3-test"
+          echo "Triggered by !test! tag: $TAG_NAME"
           echo "TAG=$TAG_NAME" >> $GITHUB_OUTPUT
 
           # Fetch the latest main branch to compare
