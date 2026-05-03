@@ -26,6 +26,8 @@
 
 A CLI tool to replace non-standard typography with standard ASCII equivalents. It targets common "smart" characters often introduced by word processors or copy-pasting from styled text.
 
+https://www.npmjs.com/package/@guineadog/normalize-typography
+
 ## What it fixes:
 
 - **Dashes:** Replaces `—` (em dash), `–` (en dash), `‒`, `―` with `-`.
