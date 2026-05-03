@@ -11,7 +11,7 @@
     <img src="https://img.shields.io/npm/dm/@guineadog/normalize-typography?logo=npm" alt="npm downloads">
   </a>
   <a href="https://bundlephobia.com/package/@guineadog/normalize-typography">
-    <img src="https://img.shields.io/bundlephobia/minzip/@guineadog/normalize-typography" alt="bundle size">
+    <img src="https://img.shields.io/bundlephobia/min/@guineadog/normalize-typography" alt="minified size">
   </a>
   <a href="https://socket.dev/npm/package/@guineadog/normalize-typography">
     <img src="https://badge.socket.dev/npm/package/@guineadog/normalize-typography/latest" alt="Socket Badge">
