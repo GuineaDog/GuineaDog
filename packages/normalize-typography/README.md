@@ -64,8 +64,8 @@ If installed locally, you can add it to your `package.json` scripts:
 ```json
 {
   "scripts": {
-    "format:typography": "normalize-typography",
-    "lint:typography": "normalize-typography --check"
+    "nrm-tpgr": "normalize-typography"
+    "nrm-tpgr:check": "nrm-tpgr -- --check"
   }
 }
 ```
@@ -73,7 +73,7 @@ If installed locally, you can add it to your `package.json` scripts:
 Then run it using your package manager:
 
 ```
-npm run format:typography
+npm run nrm-tpgr
 ```
 
 Result:
@@ -123,6 +123,40 @@ fixme.txt
 ```
 npx @guineadog/normalize-typography src/index.js README.md
 ```
+
+### If you use `lint-staged` (https://www.npmjs.com/package/lint-staged)
+
+Add to the `lint-staged` section in the root `package.json`. **Note**: `nrm-tpgr` alias should be added to the `scripts` section in the root `package.json`.
+
+1. To auto fix files that need to be committed:
+   ```json
+   {
+   ...
+     "lint-staged": {
+       "*": [
+         ...
+         "npm run nrm-tpgr"
+       ],
+       ...
+     },
+   ...
+   }
+   ```
+
+2. To check for files that need to be committed (and to prevent committing if non-standard typography is present):
+   ```json
+   {
+   ...
+     "lint-staged": {
+       "*": [
+         ...
+         "npm run nrm-tpgr:check"
+       ],
+       ...
+     },
+   ...
+   }
+   ```
 
 ### Update
 
