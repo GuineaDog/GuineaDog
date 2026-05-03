@@ -2,13 +2,13 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@guineadog/normalize-typography">
-    <img src="https://img.shields.io/npm/v/@guineadog/normalize-typography.svg" alt="npm version">
+    <img src="https://img.shields.io/npm/v/@guineadog/normalize-typography.svg?logo=npm" alt="npm version">
   </a>
   <a href="https://github.com/GuineaDog/GuineaDog/actions/workflows/ci.yml">
     <img src="https://github.com/GuineaDog/GuineaDog/actions/workflows/ci.yml/badge.svg" alt="CI">
   </a>
   <a href="https://www.npmjs.com/package/@guineadog/normalize-typography">
-    <img src="https://img.shields.io/npm/dm/@guineadog/normalize-typography.svg" alt="npm downloads">
+    <img src="https://img.shields.io/npm/dm/@guineadog/normalize-typography?logo=npm" alt="npm downloads">
   </a>
   <a href="https://bundlephobia.com/package/@guineadog/normalize-typography">
     <img src="https://img.shields.io/bundlephobia/minzip/@guineadog/normalize-typography" alt="bundle size">
