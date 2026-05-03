@@ -130,32 +130,22 @@ Add to the `lint-staged` section in the root `package.json`. **Note**: `nrm-tpgr
 
 1. To auto fix files that need to be committed:
    ```json
-   {
-   ...
      "lint-staged": {
        "*": [
-         ...
+         ...,
          "npm run nrm-tpgr"
        ],
-       ...
      },
-   ...
-   }
    ```
 
 2. To check for files that need to be committed (and to prevent committing if non-standard typography is present):
    ```json
-   {
-   ...
      "lint-staged": {
        "*": [
-         ...
+         ...,
          "npm run nrm-tpgr:check"
        ],
-       ...
      },
-   ...
-   }
    ```
 
 ### Update
