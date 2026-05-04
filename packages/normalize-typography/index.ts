@@ -16,9 +16,13 @@ const REPLACEMENTS: Replacement[] = [
   // Dashes
   { regex: /[\u2014\u2013\u2012\u2015]/g, replace: '-' },
   // Double quotes
-  { regex: /[\u201C\u201D]/g, replace: '"' },
-  // Single quotes / Apostrophes
-  { regex: /[\u2018\u2019]/g, replace: "'" },
+  { regex: /[\u201C\u201D\u00AB\u00BB\u201E]/g, replace: '"' },
+  // Single quotes / Apostrophes / French single quotes
+  { regex: /[\u2018\u2019\u2039\u203A]/g, replace: "'" },
+  // Ellipsis
+  { regex: /\u2026/g, replace: '...' },
+  // Multiplication sign
+  { regex: /\u00D7/g, replace: '*' },
 ];
 
 const isCheckMode = process.argv.includes('--check');
