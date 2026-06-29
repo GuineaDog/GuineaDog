@@ -29,7 +29,8 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
+      day: 'monday'
     open-pull-requests-limit: 100
     labels:
       - 'dependencies'

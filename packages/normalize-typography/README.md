@@ -31,8 +31,10 @@ https://www.npmjs.com/package/@guineadog/normalize-typography
 ## What it fixes:
 
 - **Dashes:** Replaces `—` (em dash), `–` (en dash), `‒`, `―` with `-`.
-- **Double Quotes:** Replaces `“` and `”` with `"`.
-- **Single Quotes:** Replaces `‘` and `’` with `'`.
+- **Double Quotes:** Replaces `“`, `”` (smart quotes), and `„` (german quotes), `«`, `»` (guillemets) with `"`.
+- **Single Quotes:** Replaces `‘`, `’` (smart quotes), and `‹`, `›` (french single quotes) with `'`.
+- **Ellipsis:** Replaces `…` with `...`.
+- **Multiplication sign:** Replaces `×` with `*`.
 
 ## Installation
 

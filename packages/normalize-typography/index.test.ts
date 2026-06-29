@@ -10,6 +10,7 @@ const __dirname = path.dirname(__filename);
 const binPath = path.resolve(__dirname, 'index.ts');
 const tempDir = path.resolve(__dirname, 'temp_test');
 
+// eslint-disable-next-line max-lines-per-function
 await test('normalize-typography', async (t) => {
   if (fs.existsSync(tempDir)) fs.rmSync(tempDir, { recursive: true });
   fs.mkdirSync(tempDir);
@@ -26,6 +27,36 @@ await test('normalize-typography', async (t) => {
     fs.writeFileSync(testFilePath, '\u201Cquote\u201D', 'utf8');
     execSync(`npx tsx ${binPath} ${testFilePath}`);
     assert.strictEqual(fs.readFileSync(testFilePath, 'utf8'), '"quote"');
+  });
+
+  await t.test('should replace guillemets', () => {
+    fs.writeFileSync(testFilePath, '\u00ABquote\u00BB', 'utf8');
+    execSync(`npx tsx ${binPath} ${testFilePath}`);
+    assert.strictEqual(fs.readFileSync(testFilePath, 'utf8'), '"quote"');
+  });
+
+  await t.test('should replace german double quotes', () => {
+    fs.writeFileSync(testFilePath, '\u201Equote\u201C', 'utf8');
+    execSync(`npx tsx ${binPath} ${testFilePath}`);
+    assert.strictEqual(fs.readFileSync(testFilePath, 'utf8'), '"quote"');
+  });
+
+  await t.test('should replace french single quotes', () => {
+    fs.writeFileSync(testFilePath, '\u2039single\u203A', 'utf8');
+    execSync(`npx tsx ${binPath} ${testFilePath}`);
+    assert.strictEqual(fs.readFileSync(testFilePath, 'utf8'), "'single'");
+  });
+
+  await t.test('should replace ellipsis', () => {
+    fs.writeFileSync(testFilePath, 'text\u2026', 'utf8');
+    execSync(`npx tsx ${binPath} ${testFilePath}`);
+    assert.strictEqual(fs.readFileSync(testFilePath, 'utf8'), 'text...');
+  });
+
+  await t.test('should replace multiplication sign', () => {
+    fs.writeFileSync(testFilePath, '2\u00D72', 'utf8');
+    execSync(`npx tsx ${binPath} ${testFilePath}`);
+    assert.strictEqual(fs.readFileSync(testFilePath, 'utf8'), '2*2');
   });
 
   await t.test('should replace single smart quotes', () => {
