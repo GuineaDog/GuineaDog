@@ -5,8 +5,7 @@
   "prHourlyLimit": 0,
   "packageRules": [
     {
-      "matchManagers": ["npm"],
-      "schedule": ["* * * * 5"]
+      "matchManagers": ["npm"]
     }
   ]
 }
