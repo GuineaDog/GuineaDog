@@ -1,11 +1,20 @@
 {
+  "description": "npm install -g renovate; renovate-config-validator",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "packageRules": [
     {
-      "matchManagers": ["npm"]
+      "description": "Default settings for all managers",
+      "automerge": false,
+      "matchManagers": ["*"],
+      "rangeStrategy": "bump",
+      "schedule": ["before 4am"],
+      "separateMajorMinor": true,
+      "separateMinorPatch": true,
+      "groupName": null,
+      "enabled": true
     }
   ]
 }

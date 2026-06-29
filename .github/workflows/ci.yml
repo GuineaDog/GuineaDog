@@ -22,11 +22,15 @@ jobs:
     name: Prepare
     runs-on: ubuntu-latest
     timeout-minutes: 2
+    if: |
+      !contains(fromJSON('["dependabot", "renovate"]'), github.actor) &&
+      !startsWith(github.event.pull_request.title, 'chore(deps') &&
+      !startsWith(github.event.pull_request.title, 'fix(deps')
     env:
       BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -65,7 +69,7 @@ jobs:
       BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Use Node.js
         uses: actions/setup-node@v6
