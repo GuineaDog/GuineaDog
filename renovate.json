@@ -10,6 +10,7 @@
       "automerge": false,
       "matchManagers": ["*"],
       "rangeStrategy": "bump",
+      "schedule": ["* 0-3 * * 1"],
       "separateMajorMinor": true,
       "separateMinorPatch": true,
       "groupName": null,
