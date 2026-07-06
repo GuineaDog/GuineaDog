@@ -45,7 +45,7 @@
     "@commitlint/cli": "^21.1.0",
     "@commitlint/config-conventional": "^21.2.0",
     "@eslint/js": "^10.0.1",
-    "@types/node": "^25.9.4",
+    "@types/node": "^26.1.0",
     "dependency-cruiser": "^18.0.0",
     "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
